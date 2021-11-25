@@ -4,13 +4,20 @@
 
 .addProductForm {
   margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.addProductTitle {
+  margin-left: 25px;
 }
 
 .addProductItem {
-  width: 250px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  padding: 20px;
 }
 
 .addProductItem > label {
@@ -28,12 +35,14 @@
 }
 
 .addProductButton {
+  height: 30px;
   margin-top: 10px;
   padding: 7px 10px;
   border: none;
   border-radius: 10px;
-  background-color: darkblue;
+  background-color: #ff7e00; 
   color: white;
   font-weight: 600;
   cursor: pointer;
+  align-self: center;
 }

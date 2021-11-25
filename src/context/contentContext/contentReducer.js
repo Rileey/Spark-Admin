@@ -1,38 +1,38 @@
-const movieReducer = (state, action) => {
+const contentReducer = (state, action) => {
     switch (action.type){
-        case "GET_MOVIES_START":
+        case "GET_CONTENTS_START":
             return{
-                movies: [],
+                content: [],
                 isFetching: true,
                 error: false
             };
-        case "GET_MOVIES_SUCCESS":
+        case "GET_CONTENTS_SUCCESS":
             return{
-                movies: action.payload,
+                content: action.payload,
                 isFetching: false,
                 error: false
             };
-        case "GET_MOVIES_FAILURE":
+        case "GET_CONTENTS_FAILURE":
             return{
-                movies: [],
+                content: [],
                 isFetching: false,
                 error: true
             };
 
 
-            case "CREATE_MOVIES_START":
+            case "CREATE_CONTENTS_START":
                 return{
                     ...state,
                     isFetching: true,
                     error: false
                 };
-            case "CREATE_MOVIES_SUCCESS":
+            case "CREATE_CONTENTS_SUCCESS":
                 return{
-                    movies: [...state.movies ,action.payload],
+                    content: [...state.content, action.payload],
                     isFetching: false,
                     error: false
                 };
-            case "CREATE_MOVIES_FAILURE":
+            case "CREATE_CONTENTS_FAILURE":
                 return{
                     ...state,
                     isFetching: false,
@@ -41,19 +41,19 @@ const movieReducer = (state, action) => {
 
 
 
-        case "DELETE_MOVIES_START":
+        case "DELETE_CONTENTS_START":
             return{
                 ...state,
                 isFetching: true,
                 error: false
             };
-        case "DELETE_MOVIES_SUCCESS":
+        case "DELETE_CONTENTS_SUCCESS":
             return{
-                movies: state.movies.filter((movie) => movie._id !== action.payload), 
+                content: state.content.filter((content) => content._id !== action.payload), 
                 isFetching: false,
                 error: false
             };
-        case "DELETE_MOVIES_FAILURE":
+        case "DELETE_CONTENTS_FAILURE":
             return{
                 ...state,
                 isFetching: false,
@@ -64,4 +64,4 @@ const movieReducer = (state, action) => {
     }
 }
 
-export default movieReducer
+export default contentReducer

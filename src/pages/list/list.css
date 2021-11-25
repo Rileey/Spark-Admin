@@ -13,11 +13,12 @@
   width: 80px;
   border: none;
   padding: 5px;
-  background-color: teal;
+  background-color: #ff7e00;
   color: white;
   border-radius: 5px;
   font-size: 16px;
-  cursor: pointer;
+  cursor: pointer; 
+  margin-right: 20px;
 }
 
 .productTop {
@@ -58,9 +59,11 @@
 }
 
 .productInfoItem {
-  width: 150px;
   display: flex;
-  justify-content: space-between;
+}
+
+.productInfoKey {
+  margin-right: 10px;
 }
 
 .productInfoValue {
@@ -123,7 +126,7 @@
   border: none;
   padding: 5px;
   border-radius: 5px;
-  background-color: darkblue;
+  background-color: #ff7e00;
   color:white;
   font-weight: 600;
   cursor: pointer;

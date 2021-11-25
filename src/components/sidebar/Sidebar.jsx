@@ -5,7 +5,7 @@ import {
   TrendingUp,
   PermIdentity,
   Movie,
-  AttachMoney,
+  ViewListRounded,
   BarChart,
   MailOutline,
   DynamicFeed,
@@ -53,14 +53,12 @@ export default function Sidebar() {
                 Movies
               </li>
             </Link>
+            <Link to="/lists" className="link">
             <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
+              <ViewListRounded className="sidebarIcon" />
+              List
             </li>
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
-            </li>
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">
@@ -77,23 +75,6 @@ export default function Sidebar() {
             <li className="sidebarListItem">
               <ChatBubbleOutline className="sidebarIcon" />
               Messages
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Staff</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <WorkOutline className="sidebarIcon" />
-              Manage
-            </li>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <Report className="sidebarIcon" />
-              Reports
             </li>
           </ul>
         </div>
