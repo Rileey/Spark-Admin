@@ -2,17 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { getContent } from "../../context/contentContext/apiCalls";
 import { ContentContext } from "../../context/contentContext/contentContext";
-import { createMovies } from "../../context/movieContext/apiCalls";
+import { createMovie } from "../../context/movieContext/apiCalls";
 import { MovieContext } from "../../context/movieContext/movieContext";
 import "./newMovie.css";
+import axios from 'axios'
 
 export default function NewProduct() {
 
   const [movie, setMovie] = useState({})
-  const [image, setImage] = useState(null)
-  const [trailer, setTrailer] = useState(null)
-  // const [uploaded, setUploaded] = useState(0)
+  const [state, setState] = useState([])
+  // const [image, setImage] = useState([])
   const history = useHistory();
+
 
   const { dispatch } = useContext(MovieContext)
   const { content, dispatch: dispatchContent } = useContext(ContentContext)
@@ -27,40 +28,94 @@ export default function NewProduct() {
 
   const handleChange = (e) => {
     const value = e.target.value
-    setMovie({...movie,...image, ...trailer, [e.target.name]: value})
+    setMovie({...movie, ...state, [e.target.name]: value})
   }
 
   const handleSelect = (e) => {
     let value = Array.from(e.target.selectedOptions, (option) => option.value)
-    setMovie({...movie,...image, ...trailer, [e.target.name]: value})
+    setMovie({...movie, ...state, [e.target.name]: value})
   }
 
-  console.log(movie)
-  console.log(image)
+  
 
-  const upload = (items) => {
-    items.forEach(item=>{
+  
 
+  const handleFileChange = (e) => {
+    //  setState({
+    //   selectedFile: e.target.files
+    // })
+    let value = 
+    Array.from
+    (
+      e.target?.files
+      , (files)=> files.name
+      )
+    console.log(e.target.files, "---------", value)
+    setState({...movie, ...state, [e.target.name]: value})
+
+  //   if (e.target.files){
+  //     const fileArray = Array.from(e.target.files).map((file)=> URL.createObjectURL(file))
+  //     console.log(fileArray) 
+    
+  //   setState((prevImages)=> prevImages.concat(fileArray))
+  //   Array.from(e.target.files).map(
+  //     (file)=>URL.revokeObjectURL(file)
+  //   )
+  //   // setImage(e.target.files)
+  //   // console.log(e.target.files)
+  // }
+}
+
+
+console.log(state)
+console.log(state.image)
+// console.log(state.image[0])
+
+  const uploadFile = async () => {
+  const fd = new FormData();
+  for(var x = 0; x < state.image.length; x++) { 
+    fd.append('image[]', state.image[x]) 
+  }
+  for(var y = 0; y < movie.content.length; y++) { 
+    fd.append('content[]', movie.content[x]) 
+  }
+  fd.append('title', movie.title);
+  fd.append('description', movie.description);
+  fd.append('duration', movie.duration);
+  fd.append('director', movie.director);
+  fd.append('genre', movie.genre);
+  fd.append('isSeries', movie.isSeries);
+  fd.append('year', movie.year);
+  fd.append('ageLimit', movie.ageLimit);
+
+
+    
+    await axios.post('/movies', fd, {
+      headers: {
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRjOTQyZDI3MjU2MDQ3NjMwOTE1MiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODA1NDI4MywiZXhwIjoxNjQwNjQ2MjgzfQ.-wK6MoeZembvg5rXNXuHYm3HpY5izx0iq3xf00DMHE4' 
+      }, 
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    upload([
-      {file: image, label: image},
-      {file: trailer, label: trailer},
-    ])
-    createMovies( movie, image, trailer, dispatch)
-    history.push('/movies')
+    createMovie(movie, dispatch)
+
+    let res = await uploadFile()
+    
+    handleFileChange()
+
+    console.log(state)
+
   }
 
   return (
     <div className="newProduct">
       <h1 className="addProductTitle">Add Movie</h1>
-      <form className="addProductForm">
+      <form encType="multipart/form-data" className="addProductForm" onSubmit={handleSubmit}>
         <div className="addProductItem">
           <label>Image</label>
-          <input type="file" id="image" name="image" onChange={e => setImage(e.target.files[0])}/>
+          <input type="file" id="image" name="image" accept="image/jpeg" onChange={handleFileChange} multiple/>
         </div>
         <div className="addProductItem">
           <label>Title</label>
@@ -93,13 +148,10 @@ export default function NewProduct() {
         <div className="addProductItem">
           <label>isSeries?</label>
           <select name="isSeries" id="isSeries" onChange={handleChange}>
+            <option>Series?</option>
             <option value="false">No</option>
             <option value="true">Yes</option>
           </select>
-        </div>
-        <div className="addProductItem">
-          <label>Trailer</label>
-          <input type="file" name="trailer" onChange={e => setTrailer(e.target.files[0])}/>
         </div>
         <div className="addProductItem">
           <label>Content</label>
@@ -109,7 +161,7 @@ export default function NewProduct() {
             ))}
           </select>
         </div>
-        <button className="addProductButton" onClick={handleSubmit}>Create</button>
+        <button className="addProductButton" >Create</button>
       </form>
     </div>
   );

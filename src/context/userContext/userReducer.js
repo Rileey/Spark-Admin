@@ -19,6 +19,28 @@ const userReducer = (state, action) => {
                 error: true
             };
 
+
+            case "UPDATE_USER_START":
+                    return{
+                        ...state,
+                        isFetching: true,
+                        error: false
+                    };
+                case "UPDATE_USER_SUCCESS":
+                    return{
+                        user: state.users.map(
+                            (user) => user._id === action.payload._id && action.payload
+                        ),
+                        isFetching: false,
+                        error: false
+                    };
+                case "UPDATE_USER_FAILURE":
+                    return{
+                        ...state,
+                        isFetching: false,
+                        error: true
+                    }; 
+
         case "DELETE_USERS_START":
             return{
                 ...state,

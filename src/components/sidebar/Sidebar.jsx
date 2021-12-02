@@ -6,7 +6,7 @@ import {
   PermIdentity,
   Movie,
   ViewListRounded,
-  BarChart,
+  PlayArrow,
   MailOutline,
   DynamicFeed,
   ChatBubbleOutline,
@@ -52,6 +52,12 @@ export default function Sidebar() {
                 <Movie className="sidebarIcon" />
                 Movies
               </li>
+            </Link>
+            <Link to="/content" className="link">
+            <li className="sidebarListItem">
+              <PlayArrow className="sidebarIcon" />
+              Movie Content
+            </li>
             </Link>
             <Link to="/lists" className="link">
             <li className="sidebarListItem">

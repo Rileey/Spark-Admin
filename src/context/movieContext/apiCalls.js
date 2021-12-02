@@ -1,6 +1,6 @@
 import axios from "axios";
-import { createMoviesFailure, createMoviesStart, createMoviesSuccess, getMoviesFailure, getMoviesStart, getMoviesSuccess } from "./movieActions"
-import { deleteMoviesSuccess, deleteMoviesFailure, deleteMoviesStart } from "./movieActions";
+import { createMovieFailure, createMovieStart, createMovieSuccess, getMoviesFailure, getMoviesStart, getMoviesSuccess } from "./movieActions"
+import { deleteMovieSuccess, deleteMovieFailure, deleteMovieStart } from "./movieActions";
 
 
 export const getMovies = async (dispatch) => {
@@ -18,32 +18,32 @@ export const getMovies = async (dispatch) => {
     }
 }
 
-export const createMovies = async (dispatch) => {
-    dispatch(createMoviesStart());
+export const createMovie = async (movie, dispatch) => {
+    dispatch(createMovieStart());
 
     try {
-        const res = await axios.get('/movies', {
+        const res = await axios.post('/movies', movie, {
             headers: {
                 token: 'Bearer '+ JSON.parse(localStorage.getItem('user')).accessToken 
             }
         });
-        dispatch(createMoviesSuccess(res.data))
+        dispatch(createMovieSuccess(res.data))
     } catch (err) {
-        dispatch(createMoviesFailure());
+        dispatch(createMovieFailure());
     }
 }
 
 
-export const deleteMovies = async (id, dispatch) => {
-    dispatch(deleteMoviesStart());
+export const deleteMovie = async (id, dispatch) => {
+    dispatch(deleteMovieStart());
     try {
         await axios.delete('/movies/' + id, {
             headers: {
                 token: "Bearer "+ JSON.parse(localStorage.getItem('user')).accessToken 
             }
         });
-        dispatch(deleteMoviesSuccess(id))
+        dispatch(deleteMovieSuccess(id))
     } catch (err) {
-        dispatch(deleteMoviesFailure());
+        dispatch(deleteMovieFailure());
     }
 }

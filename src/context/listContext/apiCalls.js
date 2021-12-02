@@ -1,7 +1,5 @@
 import axios from "axios";
 import { createListFailure, createListStart, createListSuccess, deleteListFailure, deleteListStart, deleteListSuccess, getListsFailure, getListsStart, getListsSuccess, updateListFailure, updateListStart } from "./listActions";
-// import { getMoviesFailure, getMoviesStart, getMoviesSuccess } from "./movieActions"
-// import { deleteMoviesSuccess, deleteMoviesFailure, deleteMoviesStart } from "./movieActions";
 
 
 export const getLists = async (dispatch) => {
@@ -36,14 +34,14 @@ export const createList = async (list, dispatch) => {
 
 
 
-export const updateList = async (id, list, dispatch) => {
-    dispatch(updateListStart());
-    try {
-        const res = await axios.put('/lists/' + id, )
-    } catch (err) {
-        dispatch(updateListFailure())
-    }
-}
+// export const updateList = async (id, list, dispatch) => {
+//     dispatch(updateListStart());
+//     try {
+//         const res = await axios.put('/lists/' + id, )
+//     } catch (err) {
+//         dispatch(updateListFailure())
+//     }
+// }
 
 
 export const deleteList = async (id, dispatch) => {

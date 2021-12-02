@@ -1,32 +1,32 @@
-import "./movies.css";
+
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-
+import "./contents.css"
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import axios from 'axios'
 import { MovieContext }  from '../../context/movieContext/movieContext'
-import { deleteMovie, getMovies } from '../../context/movieContext/apiCalls'
+import { deleteContent, getContent } from "../../context/contentContext/apiCalls";
+import { ContentContext } from "../../context/contentContext/contentContext";
 
-export default function Movies() {
-  const {movies, dispatch} = useContext(MovieContext)
+export default function Contents() {
+  const {content, dispatch} = useContext(ContentContext)
 
   useEffect(() => {
-     getMovies(dispatch);
+     getContent(dispatch);
 
   }, [dispatch])
 
 
 
   const handleDelete = (id) => {
-    deleteMovie(id, dispatch)
+    deleteContent(id, dispatch)
   };
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 100 },
     {
-      field: "movie",
-      headerName: "Movie",
+      field: "title",
+      headerName: "Content",
       width: 200,
       renderCell: (params) => {
         return (
@@ -36,10 +36,9 @@ export default function Movies() {
         );
       },
     },
-    { field: "genre", headerName: "Genre", width: 120 },
     { field: "year", headerName: "Year", width: 120 },
     { field: "ageLimit", headerName: "AgeLimit", width: 120 },
-    { field: "isSeries", headerName: "Series", width: 120 },
+    { field: "duration", headerName: "Duration", width: 200 },
     { field: "director", headerName: "Director", width: 200 },
     {
       field: "action",
@@ -48,7 +47,7 @@ export default function Movies() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={{pathname: "/movie/" + params.row._id, movie: params.row}}>
+            <Link to={{pathname: "/content/" + params.row._id, content: params.row}}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
@@ -64,7 +63,7 @@ export default function Movies() {
   return (
     <div className="productList">
       <DataGrid
-        rows={movies}
+        rows={content}
         disableSelectionOnClick
         columns={columns}
         pageSize={8}

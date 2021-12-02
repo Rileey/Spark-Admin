@@ -20,19 +20,19 @@ const movieReducer = (state, action) => {
             };
 
 
-            case "CREATE_MOVIES_START":
+            case "CREATE_MOVIE_START":
                 return{
                     ...state,
                     isFetching: true,
                     error: false
                 };
-            case "CREATE_MOVIES_SUCCESS":
+            case "CREATE_MOVIE_SUCCESS":
                 return{
-                    movies: [...state.movies ,action.payload],
+                    movies: [...state.movies, action.payload],
                     isFetching: false,
                     error: false
                 };
-            case "CREATE_MOVIES_FAILURE":
+            case "CREATE_MOVIE_FAILURE":
                 return{
                     ...state,
                     isFetching: false,
@@ -41,19 +41,42 @@ const movieReducer = (state, action) => {
 
 
 
-        case "DELETE_MOVIES_START":
+                case "UPDATE_MOVIE_START":
+                    return{
+                        ...state,
+                        isFetching: true,
+                        error: false
+                    };
+                case "UPDATE_MOVIE_SUCCESS":
+                    return{
+                        movie: state.movie.map(
+                            (movie) => movie._id === action.payload._id && action.payload
+                        ),
+                        isFetching: false,
+                        error: false
+                    };
+                case "UPDATE_MOVIE_FAILURE":
+                    return{
+                        ...state,
+                        isFetching: false,
+                        error: true
+                    };    
+
+
+
+        case "DELETE_MOVIE_START":
             return{
                 ...state,
                 isFetching: true,
                 error: false
             };
-        case "DELETE_MOVIES_SUCCESS":
+        case "DELETE_MOVIE_SUCCESS":
             return{
                 movies: state.movies.filter((movie) => movie._id !== action.payload), 
                 isFetching: false,
                 error: false
             };
-        case "DELETE_MOVIES_FAILURE":
+        case "DELETE_MOVIE_FAILURE":
             return{
                 ...state,
                 isFetching: false,

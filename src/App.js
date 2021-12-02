@@ -16,6 +16,9 @@ import List from "./pages/list/List"
 import NewList from "./pages/newList/NewList";
 import Movies from "./pages/movies/Movies";
 import NewMovie from "./pages/newMovie/NewMovie";
+import Contents from "./pages/contents/Contents";
+import Content from "./pages/content/Content";
+import NewContent from "./pages/newContent/NewContent";
 
 function App() {
 
@@ -40,6 +43,15 @@ function App() {
           </Route>
           <Route path="/newUser">
             <NewUser />
+          </Route>
+          <Route path="/content">
+            <Contents />
+          </Route>
+          <Route path="/content/:contentId">
+            <Content />
+          </Route>
+          <Route path="/newcontent">
+            <NewContent />
           </Route>
           <Route path="/movies">
             <Movies />

@@ -49,23 +49,36 @@ export default function NewList() {
         </div>
         <div className="addProductItem">
           <label>Genre</label>
-          <input type="text" placeholder="Drama" name="genre" onChange={handleChange}/>
+          <select name='genre' onChange={handleChange}>
+          <option value='Adventure'>Adventure</option>
+            <option value='Comedy'>Comedy</option>
+            <option value='Crime'>Crime</option>
+            <option value='Fantasy'>Fantasy</option>
+            <option value='Historical'>Historical</option>
+            <option value='Horror'>Horror</option>
+            <option value='Romance'>Romance</option>
+            <option value='Sci-fi'>Sci-fi</option>
+            <option value='Thriller'>Thriller</option>
+            <option value='Cartoons'>Cartoons</option>
+            <option value='Drama'>Drama</option>
+            <option value='Documentary'>Documentary</option>
+          </select>
         </div>
         <div className="addProductItem">
           <label>Type</label>
           <select name='type' onChange={handleChange}>
           <option >Type</option>
-            <option value='movie'>Movie</option>
-            <option value='series'>Series</option>
+            <option value='Movies'>Movies</option>
+            <option value='Series'>Series</option>
           </select>
         </div>
         </div>
         <div className="formRight">
         <div className="addProductItem">
-          <label>Content</label>
+          <label>Movies</label>
           <select multiple name='content' onChange={handleSelect} style={{height: '280px'}}>
             {movies.map((movie)=> (
-              <option key={movie._id} value={movie._id}>{movie.title}</option>
+              <option key={movie._id} value={movie}>{movie.title}</option>
             ))}
           </select>
         </div>

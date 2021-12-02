@@ -30,7 +30,7 @@ export default function Movie() {
       <div className="productTop"> 
           <div className="productTopRight">
               <div className="productInfoTop">
-                  <img className="productInfoImg" src={movie.image} alt=''/>
+                  <img className="productInfoImg" src={movie.image[0]} alt=''/>
                   <span className="productName">{movie.title}</span>
               </div>
               <div className="productInfoBottom">
@@ -70,10 +70,8 @@ export default function Movie() {
                   <input type="text" placeholder={movie.genre}/>
                   <label>AgeLimit</label>
                   <input type="text" placeholder={movie.ageLimit}/>
-                  <label>Trailer</label>
+                  <label>Image Files</label>
                   <input type="file" placeholder={movie.trailer}/>
-                  <label>Video</label>
-                  <input type="file" placeholder={movie.video}/>
                   <div className="addProductItem">
                     <label>Content</label>
                     <select multiple name='content' onChange={handleSelect} style={{height: '280px'}}>
@@ -85,7 +83,7 @@ export default function Movie() {
               </div>
               <div className="productFormRight">
                   <div className="productUpload">
-                      <img src={movie.image} alt="" className="productUploadImg" />
+                      <img src={movie.image[0]} alt="" className="productUploadImg" />
                       <label for="file">
                           <Publish style={{cursor:"pointer"}}/>
                       </label>
