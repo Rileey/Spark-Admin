@@ -9,9 +9,9 @@ export default function List() {
     <div className="product">
       <div className="productTitleContainer">
         <h1 className="productTitle">List</h1>
-        <Link to="/newlist">
-          <button className="productAddButton">Create</button>
-        </Link>
+        {/* <Link to="/newlist">
+          <button className="productAddButton">Create Movie List</button>
+        </Link> */}
       </div>
       <div className="productTop"> 
           <div className="productTopRight">

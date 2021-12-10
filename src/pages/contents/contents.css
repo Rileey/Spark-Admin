@@ -29,3 +29,20 @@
     color: red;
     cursor: pointer;
 }
+
+.productAddButton1 {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    background-color: #ff7e00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 17px;
+    cursor: pointer;
+}
+
+.productAddButton1:hover {
+    box-shadow: 1px 1px 10px 3px rgba(0,0,0,0.51);  
+    -webkit-box-shadow: 1px 1px 10px 3px rgba(0,0,0,0.51);
+    -moz-box-shadow: 1px 1px 10px 3px rgba(0,0,0,0.51);
+}

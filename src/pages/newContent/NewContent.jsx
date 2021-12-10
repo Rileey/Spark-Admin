@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { createContent } from "../../context/contentContext/apiCalls";
 import { ContentContext } from "../../context/contentContext/contentContext";
+import axios from "axios"
 // import { createMovies } from "../../context/movieContext/apiCalls";
 // import { MovieContext } from "../../context/movieContext/movieContext";
 import "./newContent.css";
@@ -23,28 +24,32 @@ export default function NewContent() {
 
   const handleChange = (e) => {
     const value = e.target.value
-    setMovie({...movie,...video, [e.target.name]: value})
+    setMovie({...movie, [e.target.name]: value})
   }
 
-  const handleSelect = (e) => {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value)
-    setMovie({...movie,...video, [e.target.name]: value})
-  }
-
-
-  const upload = (items) => {
-    items.forEach(item=>{
-
-    })
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
-    // upload([
-    //   {file: image, label: image},
-    //   {file: trailer, label: trailer},
-    // ])
-    // createMovies( movie, image, trailer, dispatch)
+
+    let formdata = new FormData()
+    formdata.append('title', movie.title)
+    for (let i = 0; i < video.length; i++) {
+      formdata.append('image', video[i], video[i].name)
+    }
+    formdata.append('description', movie.description)
+    formdata.append('director', movie.director)
+    formdata.append('year', movie.year)
+    formdata.append('ageLimit', movie.ageLimit)
+    formdata.append('genre', movie.genre)
+    formdata.append('duration', movie.duration)
+    formdata.append('isSeries', movie.isSeries)
+
+    const response =  await axios.post('/content', formdata, {
+      headers: {
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRjOTQyZDI3MjU2MDQ3NjMwOTE1MiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODA1NDI4MywiZXhwIjoxNjQwNjQ2MjgzfQ.-wK6MoeZembvg5rXNXuHYm3HpY5izx0iq3xf00DMHE4' 
+      }, 
+    })
+
+
     history.push('/content')
   }
 
@@ -57,9 +62,9 @@ export default function NewContent() {
           <input type="text" placeholder="The Crackdown" name="title" onChange={handleChange}/>
         </div>
         <div className="addProductItem">
-          <label>Video Files</label>
-          <input type="file" id="image" name="image" 
-          // onChange={e => setImage(e.target.files)}
+          <label>Movie/Series Episode</label>
+          <input type="file" id="video" name="video" 
+          onChange={e => setVideo(e.target.files)}
           />
         </div>
         <div className="addProductItem">
@@ -78,10 +83,10 @@ export default function NewContent() {
           <label>AgeLimit</label>
           <input type="text" placeholder="17" name="ageLimit" onChange={handleChange}/>
         </div>
-        {/* <div className="addProductItem">
+        <div className="addProductItem">
           <label>Genre</label>
           <input type="text" placeholder="Drama" name="genre" onChange={handleChange}/>
-        </div> */}
+        </div>
         <div className="addProductItem">
           <label>Duration</label>
           <input type="text" placeholder="Duration" name="duration" onChange={handleChange}/>

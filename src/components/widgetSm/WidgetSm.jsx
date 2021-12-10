@@ -12,10 +12,11 @@ export default function WidgetSm() {
       try {
       const res = await axios.get('/users?new=true', {
         headers: {
-          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRjOTQyZDI3MjU2MDQ3NjMwOTE1MiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODA1NDI4MywiZXhwIjoxNjQwNjQ2MjgzfQ.-wK6MoeZembvg5rXNXuHYm3HpY5izx0iq3xf00DMHE4'
+          token: 'Bearer '+ JSON.parse(localStorage.getItem('user')).accessToken 
         }
         })
         setNewusers(res.data);
+        console.log(res.data)
       } catch (err) {
       console.log(err)
       }
@@ -37,12 +38,9 @@ export default function WidgetSm() {
             className="widgetSmImg"
           />
           <div className="widgetSmUser">
-            <span className="widgetSmUsername">{user.username}</span>
+            <span className="widgetSmUsername">
+              {user.email}</span>
           </div>
-          <button className="widgetSmButton">
-            <Visibility className="widgetSmIcon" />
-            Display
-          </button>
         </li>
         ))} 
       </ul>

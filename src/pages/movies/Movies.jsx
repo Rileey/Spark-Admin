@@ -63,6 +63,9 @@ export default function Movies() {
 
   return (
     <div className="productList">
+      <Link to="/newmoviepage1">
+          <button className="productAddButton1">Create Movie</button>
+        </Link>
       <DataGrid
         rows={movies}
         disableSelectionOnClick

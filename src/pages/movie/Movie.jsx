@@ -23,9 +23,9 @@ export default function Movie() {
     <div className="product">
       <div className="productTitleContainer">
         <h1 className="productTitle">Movie</h1>
-        <Link to="/newmovie">
+        {/* <Link to="/newmovie">
           <button className="productAddButton">Create</button>
-        </Link>
+        </Link> */}
       </div>
       <div className="productTop"> 
           <div className="productTopRight">

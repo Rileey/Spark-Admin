@@ -62,6 +62,9 @@ export default function Contents() {
 
   return (
     <div className="productList">
+      <Link to="/newcontent">
+          <button className="productAddButton1">Create Content</button>
+        </Link>
       <DataGrid
         rows={content}
         disableSelectionOnClick
@@ -70,6 +73,7 @@ export default function Contents() {
         checkboxSelection
         getRowId={(r) => r._id}
       />
+      
     </div>
   );
 }

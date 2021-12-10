@@ -16,9 +16,9 @@ export default function Content() {
     <div className="product">
       <div className="productTitleContainer">
         <h1 className="productTitle">Content</h1>
-        <Link to="/newcontent">
+        {/* <Link to="/newcontent">
           <button className="productAddButton">Create</button>
-        </Link>
+        </Link> */}
       </div>
       <div className="productTop"> 
           <div className="productTopRight">

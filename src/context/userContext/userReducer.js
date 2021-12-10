@@ -41,19 +41,19 @@ const userReducer = (state, action) => {
                         error: true
                     }; 
 
-        case "DELETE_USERS_START":
+        case "DELETE_USER_START":
             return{
                 ...state,
                 isFetching: true,
                 error: false
             };
-        case "DELETE_USERS_SUCCESS":
+        case "DELETE_USER_SUCCESS":
             return{
                 users: state.users.filter((users) => users._id !== action.payload), 
                 isFetching: false,
                 error: false
             };
-        case "DELETE_USERS_FAILURE":
+        case "DELETE_USER_FAILURE":
             return{
                 ...state,
                 isFetching: false,

@@ -12,14 +12,14 @@ export const getUsersFailure = () => ({
 })
 
 export const deleteUsersStart = () => ({
-    type: 'DELETE_USERS_START',
+    type: 'DELETE_USER_START',
 })
 
 export const deleteUsersSuccess = (id) => ({
-    type: 'DELETE_USERS_SUCCESS',
+    type: 'DELETE_USER_SUCCESS',
     payload: id
 })
 
 export const deleteUsersFailure = () => ({
-    type: 'DELETE_USERS_FAILURE',
+    type: 'DELETE_USER_FAILURE',
 })
