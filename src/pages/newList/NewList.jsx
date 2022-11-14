@@ -78,7 +78,7 @@ export default function NewList() {
           <label>Movies</label>
           <select multiple name='content' onChange={handleSelect} style={{height: '280px'}}>
             {movies.map((movie)=> (
-              <option key={movie._id} value={movie}>{movie.title}</option>
+              <option key={movie._id} value={movie._id}>{movie.title}</option>
             ))}
           </select>
         </div>

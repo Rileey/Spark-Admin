@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { login } from '../../context/authContext/apicalls'
 import { AuthContext } from '../../context/authContext/authContext'
+// import { useHistory } from 'react-router-dom'
 import './login.css'
 
 const Login = () => {
 
+    // const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const {isFetching, dispatch} = useContext(AuthContext)
@@ -12,6 +14,7 @@ const Login = () => {
     const handleClick = (e) => {
         e.preventDefault();
         login({email, password}, dispatch)
+        // history.push('/')
     }
     return (
         <div className='login'>

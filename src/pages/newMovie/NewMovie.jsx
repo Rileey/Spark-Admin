@@ -10,9 +10,12 @@ import axios from 'axios'
 export default function NewProduct() {
 
   const [movie, setMovie] = useState({})
+  // const [cont, setContent] = useState([])
   const [file, setFile] = useState({})
   const [thumbnail, setThumbnail] = useState({})
   const [trailer, setTrailer] = useState({})
+  const [checked, setChecked] = useState(false)
+  const [selectedContent, setSelectedContent] = useState([])
   const history = useHistory();
 
   const { content, dispatch: dispatchContent } = useContext(ContentContext)
@@ -23,15 +26,26 @@ export default function NewProduct() {
 
   const handleChange = (e) => {
     const value = e.target.value
-    setMovie({...movie, [e.target.name]: value})
-    console.log(movie)
+    setMovie({...movie, [e.target.name]: value, content: selectedContent})
+    console.log(movie, selectedContent)
   }
 
-  const handleSelect = (e) => {
-    let value = Array.from(e.target.selectedOptions, (option) => option.value)
-    setMovie({...movie, [e.target.name]: value})
-  }
-    
+  // const handleSelect = (e) => {
+  //   let value = Array.from(e.target.selectedOptions, (option) => option.value)
+  //   setMovie({...movie, [e.target.name]: value})
+  // }
+
+  // const handleChecked = (e, content) => {
+  //   setChecked(!checked)
+
+  //   e.target.checked && selectedContent.push(content)
+  // }
+
+    // console.log(checked)
+
+console.log(selectedContent)
+// console.log(movie.content)
+
 console.log(file)
   const handleStart = async (e) => {
     e.preventDefault()
@@ -54,19 +68,25 @@ console.log(file)
     formdata.append('genre', movie.genre)
     formdata.append('duration', movie.duration)
     formdata.append('isSeries', movie.isSeries)
-    for (let i = 0; i < movie.content.length; i++) {
-      formdata.append('content', movie.content[i])
-    }
     
+    for (let i = 0; i < selectedContent.length; i++) {
+      // var content = JSON.stringify(selectedContent[i])
+      formdata.append('content', selectedContent[i])
+      
+    }
+  
 
     const response =  await axios.post('/movies', formdata, {
       headers: {
-        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRjOTQyZDI3MjU2MDQ3NjMwOTE1MiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODA1NDI4MywiZXhwIjoxNjQwNjQ2MjgzfQ.-wK6MoeZembvg5rXNXuHYm3HpY5izx0iq3xf00DMHE4' 
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRjOTQyZDI3MjU2MDQ3NjMwOTE1MiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODA1NDI4MywiZXhwIjoxNjQwNjQ2MjgzfQ.-wK6MoeZembvg5rXNXuHYm3HpY5izx0iq3xf00DMHE4',
+        'Content-Type': 'multipart/form-data'
       }, 
     })
     console.log(response, 'responsee')
     // handleFileChange()
     // createMovie(movie, dispatch)
+
+    history.push('/movies')
 
 
   }
@@ -125,21 +145,50 @@ console.log(file)
         <div className="addProductItem">
           <label>isSeries?</label>
           <select name="isSeries" id="isSeries" onChange={handleChange}>
-            <option>Series?</option>
-            <option value="false">No</option>
-            <option value="true">Yes</option>
+            <option>Choose</option>
+            <option value="false">Movie</option>
+            <option value="true">Series</option>
           </select>
         </div>
-        <div className="addProductItem">
-          <label>Content</label>
-          <select multiple name='content' onChange={handleSelect} style={{height: '280px'}}>
-            {content.map((content)=> (
-              <option key={content._id} 
-              // value={content}
-              >{content.title}</option>
+        <div className="addProductItem" id="last" style={{
+            overflow:"scroll",
+            height: "150px"
+          }}>
+          <label >Content</label>
+          {content.map((newContent) => (
+            <div key={newContent._id}>
+            <input type="checkbox"
+            name="content"
+            defaultChecked={checked}
+            onChange={(e)=>{
+              e.target.checked ? setSelectedContent(prev=> [...prev,
+                //  {
+                  //  contentId:
+                    newContent._id
+                  // }
+                ]) : setSelectedContent(selectedContent.filter(content=>content.id !== newContent.id))
               
-            ))}
-          </select>
+            }}
+            />
+            <label >{newContent.title}</label>
+            </div>
+          ))}
+          
+          {/* <select multiple name='content' onChange={handleSelect} style={{height: '280px'}}>
+            {content.map((newContent)=> (
+              <option key={newContent._id} 
+              value={newContent}
+              >{newContent.title}</option>
+              
+            ))} */}
+            {/* {content.map((newContent).filter(newContent => newContent._id) =>(
+            // 
+           
+              <option key={newContent._id}
+              value={newContent}> 
+              {newContent.title}</option>
+            ))} */}
+          {/* </select> */}
         </div>
         <button className="addProductButton" >Create</button>
       </form>

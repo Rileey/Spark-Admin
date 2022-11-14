@@ -30,6 +30,9 @@
   padding: 10px;
 }
 
+#last{
+  margin-bottom: 60px;
+}
 .addProductItem > select {
   padding: 10px;
 }

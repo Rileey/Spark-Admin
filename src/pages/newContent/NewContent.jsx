@@ -10,15 +10,18 @@ import "./newContent.css";
 export default function NewContent() {
 
   const [movie, setMovie] = useState({})
-  const [video, setVideo] = useState(null)
+  const [videoHD, setVideoHD] = useState(null)
+  const [videoFHD, setVideoFHD] = useState(null)
+  const [video2k, setVideo2k] = useState(null)
+  const [video4k, setVideo4k] = useState(null)
   // const [uploaded, setUploaded] = useState(0)
   const history = useHistory();
 
-  const { dispatch } = useContext(ContentContext)
+  // const { dispatch } = useContext(ContentContext)
 
-  useEffect(() => {
-    createContent(dispatch)
-  }, [dispatch])
+  // useEffect(() => {
+  //   createContent(dispatch)
+  // }, [dispatch])
 
 
 
@@ -32,20 +35,46 @@ export default function NewContent() {
 
     let formdata = new FormData()
     formdata.append('title', movie.title)
-    for (let i = 0; i < video.length; i++) {
-      formdata.append('image', video[i], video[i].name)
+    if(!videoHD){
+      formdata.append('videoHD', videoHD)
+    }else {
+    for (let i = 0; i < videoHD.length; i++) {
+      formdata.append('videoHD', videoHD[i], videoHD[i].name)
     }
+  }
+  if(!videoFHD){
+    formdata.append('videoFHD', videoFHD)
+  }else {
+    for (let i = 0; i < videoFHD.length; i++) {
+      formdata.append('videoFHD', videoFHD[i], videoFHD[i].name)
+    }
+  }
+  if(!video2k){
+    formdata.append('video2k', video2k)
+  }else {
+    for (let i = 0; i < video2k.length; i++) {
+      formdata.append('video2k', video2k[i], video2k[i].name)
+    }
+  }
+  if(!video4k){
+    formdata.append('video4k', video4k)
+  }else {
+    for (let i = 0; i < video4k.length; i++) {
+      formdata.append('video4k', video4k[i], video4k[i].name)
+    }
+  }
     formdata.append('description', movie.description)
     formdata.append('director', movie.director)
     formdata.append('year', movie.year)
     formdata.append('ageLimit', movie.ageLimit)
     formdata.append('genre', movie.genre)
     formdata.append('duration', movie.duration)
-    formdata.append('isSeries', movie.isSeries)
+    // formdata.append('isSeries', movie.isSeries)
 
-    const response =  await axios.post('/content', formdata, {
+    await axios.post('/content', formdata, {
       headers: {
-        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRjOTQyZDI3MjU2MDQ3NjMwOTE1MiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODA1NDI4MywiZXhwIjoxNjQwNjQ2MjgzfQ.-wK6MoeZembvg5rXNXuHYm3HpY5izx0iq3xf00DMHE4' 
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTRjOTQyZDI3MjU2MDQ3NjMwOTE1MiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODA1NDI4MywiZXhwIjoxNjQwNjQ2MjgzfQ.-wK6MoeZembvg5rXNXuHYm3HpY5izx0iq3xf00DMHE4',
+        'Content-Type': 'multipart/form-data'
       }, 
     })
 
@@ -62,9 +91,27 @@ export default function NewContent() {
           <input type="text" placeholder="The Crackdown" name="title" onChange={handleChange}/>
         </div>
         <div className="addProductItem">
-          <label>Movie/Series Episode</label>
-          <input type="file" id="video" name="video" 
-          onChange={e => setVideo(e.target.files)}
+          <label>Movie/Series Episode in HD</label>
+          <input type="file" id="video" name="videoHD" 
+          onChange={e => setVideoHD(e.target.files)}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Movie/Series Episode in Full HD</label>
+          <input type="file" id="video" name="videoFHD" 
+          onChange={e => setVideoFHD(e.target.files)}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Movie/Series Episode in 2k</label>
+          <input type="file" id="video" name="video2k" 
+          onChange={e => setVideo2k(e.target.files)}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Movie/Series Episode in 4k</label>
+          <input type="file" id="video" name="video4k" 
+          onChange={e => setVideo4k(e.target.files)}
           />
         </div>
         <div className="addProductItem">
@@ -91,13 +138,6 @@ export default function NewContent() {
           <label>Duration</label>
           <input type="text" placeholder="Duration" name="duration" onChange={handleChange}/>
         </div>
-        {/* <div className="addProductItem">
-          <label>isSeries?</label>
-          <select name="isSeries" id="isSeries" onChange={handleChange}>
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-          </select>
-        </div> */}
 
         <button className="addProductButton" onClick={handleSubmit}>Create</button>
       </form>
